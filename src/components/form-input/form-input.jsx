@@ -1,11 +1,12 @@
 import "./form-input.scss";
 
-// Get label from sign-up component and spread rest of props.
+// Get label directly and spread rest of props (they are made for input) from sign-up component.
 const FormInput = ({ label, ...otherProps }) => {
   return (
     <div className='group'>
       <input className='form-input' {...otherProps} />
       {label && (
+        // If the user entered anything in the "value" then add the "shrink" css class
         <label
           className={`${
             otherProps.value.length ? "shrink" : ""

@@ -66,6 +66,7 @@ const SignUp = () => {
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
+        {/* We catch all these props as otherProps (and label) in form-input */}
         <FormInput
           label='Display Name'
           type='text'
