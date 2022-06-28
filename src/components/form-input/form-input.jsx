@@ -1,5 +1,6 @@
 import "./form-input.scss";
 
+// Get label from sign-up component and spread rest of props.
 const FormInput = ({ label, ...otherProps }) => {
   return (
     <div className='group'>
