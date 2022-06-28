@@ -4,6 +4,7 @@ import {
   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -38,7 +39,8 @@ export const signInWithGoogleRedirect = () =>
 export const db = getFirestore();
 
 // Google wants us to do things asynchronous so don't forget async / await
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
+  if (!userAuth) return;
   // Doc takes three parameters. The first one is database, the second one is collection and the third one is identifier. When we log in with Google the returning object has an unique identifier called "uid" we use that as identifier.
   const userDocRef = doc(db, "users", userAuth.uid);
 
@@ -54,6 +56,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         displayName,
         email,
         createdAt,
+        ...additionalInfo,
       });
     } catch (error) {
       console.log("Error creating the user", error.message);
@@ -61,4 +64,10 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   }
 
   return userDocRef;
+};
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
 };

@@ -1,4 +1,8 @@
 import { useState } from "react";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from "../../utils/firebase/firebase";
 
 // Create default formFields state object
 const defaultFormFields = {
@@ -11,6 +15,37 @@ const defaultFormFields = {
 const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+
+  // Reset the form after submitting.
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Password do not match");
+      return;
+    }
+
+    // We already destructed email and password from formFields state. They are up to date values.
+    try {
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await createUserDocumentFromAuth(user, { displayName });
+      resetFormFields();
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        alert("Can't create user, email already in use");
+      } else {
+        console.log("Error when creating user", error.message);
+      }
+    }
+  };
 
   // Made this generic so it works for all the inputs in the form. It  updates the state when anything change on the inputs.
   const handleChange = (event) => {
@@ -26,7 +61,7 @@ const SignUp = () => {
   return (
     <div>
       <h1>Sign up with our email and password</h1>
-      <form onSubmit={() => {}}>
+      <form onSubmit={handleSubmit}>
         <label>Display Name</label>
         <input
           type='text'
