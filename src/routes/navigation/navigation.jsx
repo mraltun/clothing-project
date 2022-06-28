@@ -1,4 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
+// CRA uses SVGR so we can import SVG as component
 import { ReactComponent as MainLogo } from "../../assets/crown.svg";
 import "./navigation.scss";
 

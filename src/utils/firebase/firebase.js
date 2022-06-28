@@ -7,10 +7,7 @@ import {
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
+// App's Firebase configuration. You can get this from Project settings in the Firebase Console
 const firebaseConfig = {
   apiKey: "AIzaSyBj5Mn5KXwp7nnVUjKzNc7kkNSlBVrhyKA",
   authDomain: "clothing-project-b5e91.firebaseapp.com",
@@ -23,22 +20,31 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+// Provide is a class and we can have multiple instances of it so we need "New"
+const googleProvider = new GoogleAuthProvider();
 
-provider.setCustomParameters({
+// When user interacts with our provider we force them to select an account.
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
 
+// Initialize Firestore Database
 export const db = getFirestore();
 
+// Google wants us to do things asynchronous so don't forget async / await
 export const createUserDocumentFromAuth = async (userAuth) => {
+  // Doc takes three parameters. The first one is database, the second one is collection and the third one is identifier. When we log in with Google the returning object has an unique identifier called "uid" we use that as identifier.
   const userDocRef = doc(db, "users", userAuth.uid);
 
   const userSnapshot = await getDoc(userDocRef);
 
+  // If userSnapshot doesn't exists, we create it with our object
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
