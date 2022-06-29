@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../../context/user";
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -18,6 +19,8 @@ const SignIn = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  const { setCurrentUser } = useContext(UserContext);
+
   // Reset the form after submitting.
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -33,10 +36,13 @@ const SignIn = () => {
 
     // We already destructed email and password from formFields state. They are up to date values.
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
+
+      setCurrentUser(user);
+
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/wrong-password") {
