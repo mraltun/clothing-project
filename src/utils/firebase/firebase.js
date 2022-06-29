@@ -83,5 +83,6 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
 export const signOutUser = () => signOut(auth);
 
+// Observer pattern
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);

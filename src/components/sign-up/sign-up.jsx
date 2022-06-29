@@ -39,6 +39,7 @@ const SignUp = () => {
         password
       );
 
+      // We can't move this to user context because we need displayName.
       await createUserDocumentFromAuth(user, { displayName });
 
       resetFormFields();

@@ -14,6 +14,7 @@ export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const value = { currentUser, setCurrentUser };
 
+  // If a user comes thru we send it to createUserDocumentFromAuth to check if they are new from Google login or already exists. Otherwise just set the user or null in state
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
