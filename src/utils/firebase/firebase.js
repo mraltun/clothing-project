@@ -81,6 +81,7 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
+// Sign out using Firebase method
 export const signOutUser = () => signOut(auth);
 
 // Observer pattern
