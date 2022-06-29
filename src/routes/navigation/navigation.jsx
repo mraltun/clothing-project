@@ -7,13 +7,7 @@ import { ReactComponent as MainLogo } from "../../assets/crown.svg";
 import "./navigation.scss";
 
 const Navigation = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-
-  // Use signOutUser from firebase and update the context state to null. If you don't state will be undefined
-  const signOutHandler = async () => {
-    await signOutUser();
-    setCurrentUser(null);
-  };
+  const { currentUser } = useContext(UserContext);
 
   return (
     <>
@@ -25,9 +19,9 @@ const Navigation = () => {
           <Link className='nav-link' to='/shop'>
             SHOP
           </Link>
-          {/* Check state in context if the user logged in and render correct link  */}
+          {/* Check state in context if the user logged in then render the correct link  */}
           {currentUser ? (
-            <span className='nav-link' onClick={signOutHandler}>
+            <span className='nav-link' onClick={signOutUser}>
               SIGN OUT
             </span>
           ) : (
