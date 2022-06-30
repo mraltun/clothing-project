@@ -1,5 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import { useContext } from "react";
+import CartIcon from "../../components/cart-icon/cart-icon";
 import { UserContext } from "../../context/user";
 import { signOutUser } from "../../utils/firebase/firebase";
 // CRA uses SVGR so we can import SVG as component
@@ -29,6 +30,7 @@ const Navigation = () => {
               SING IN
             </Link>
           )}
+          <CartIcon />
         </div>
       </div>
       <Outlet />
