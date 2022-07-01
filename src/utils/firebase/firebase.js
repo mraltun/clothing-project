@@ -9,7 +9,14 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+} from "firebase/firestore";
 
 // App's Firebase configuration. You can get this from Project settings in the Firebase Console
 const firebaseConfig = {
@@ -40,6 +47,23 @@ export const signInWithGoogleRedirect = () =>
 
 // Initialize Firestore Database
 export const db = getFirestore();
+
+// When you try to find something inside Firebase it'll be created for us even if it's not populated! It's about document references.
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+  console.log("done");
+};
 
 // Google wants us to do things asynchronous so don't forget async / await
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
