@@ -7,6 +7,7 @@ const CategoriesPreview = () => {
 
   return (
     <>
+      {/* Get array of keys from categoriesMap (hats, jackets etc..) */}
       {Object.keys(categoriesMap).map((title) => {
         const products = categoriesMap[title];
         return (
