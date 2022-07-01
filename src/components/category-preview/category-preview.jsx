@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ProductCard from "../product-card/product-card";
 import "./category-preview.scss";
 
@@ -5,7 +6,9 @@ const CategoryPreview = ({ title, products }) => {
   return (
     <div className='category-preview-container'>
       <h2>
-        <span>{title.toUpperCase()}</span>
+        <Link className='title' to={title}>
+          {title.toUpperCase()}
+        </Link>
       </h2>
       <div className='preview'>
         {/* Get index of products from the array and list the first 4 of them as preview  */}

@@ -16,13 +16,16 @@ const Category = () => {
   }, [category, categoriesMap]);
 
   return (
-    <div className='category-container'>
-      {/* products will be undefined because categoryMap is an empty object. It needs to fetch data so we need to add truthy */}
-      {products &&
-        products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-    </div>
+    <>
+      <h2 className='category-title'>{category.toUpperCase()}</h2>
+      <div className='category-container'>
+        {/* products will be undefined because categoryMap is an empty object. It needs to fetch data so we need to add truthy */}
+        {products &&
+          products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+      </div>
+    </>
   );
 };
 
