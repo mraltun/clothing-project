@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductCard from "../../components/product-card/product-card";
 import { CategoriesContext } from "../../context/categories";
-import "./category.scss";
+import { CategoryContainer, Title } from "./category.style";
 
 const Category = () => {
   // Destruct category name from url (":category" from route)
@@ -17,14 +17,14 @@ const Category = () => {
 
   return (
     <>
-      <h2 className='category-title'>{category.toUpperCase()}</h2>
-      <div className='category-container'>
+      <Title>{category.toUpperCase()}</Title>
+      <CategoryContainer>
         {/* products will be undefined because categoryMap is an empty object. It needs to fetch data so we need to add truthy */}
         {products &&
           products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-      </div>
+      </CategoryContainer>
     </>
   );
 };
