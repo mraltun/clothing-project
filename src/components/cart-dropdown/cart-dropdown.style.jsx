@@ -18,6 +18,7 @@ export const CartDropdownContainer = styled.div`
   right: 40px;
   z-index: 5;
 
+  /* This will only effect them when they are nested inside this component */
   ${BaseButton}
   ${GoogleSignInButton}
   ${InvertedButton} {
