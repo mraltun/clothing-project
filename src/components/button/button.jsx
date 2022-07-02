@@ -1,12 +1,13 @@
 import { BaseButton, GoogleSignInButton, InvertedButton } from "./button.style";
 
-// These are class names from the scss
-const BUTTON_TYPE_CLASSES = {
+// We can import this along with Button below and use it as prop inside Button component like "<Button buttonType={BUTTON_TYPE_CLASSES.inverted} />"
+export const BUTTON_TYPE_CLASSES = {
   base: "base",
   google: "google-sign-in",
   inverted: "inverted",
 };
 
+// If you don't specify the type it's base by default. We return an object with all the component names from styled components and match it with passed method (if the method is .inverted, we render "InvertedButton" from styled)
 const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
   ({
     [BUTTON_TYPE_CLASSES.base]: BaseButton,
@@ -17,10 +18,7 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
 const Button = ({ children, buttonType, ...otherProps }) => {
   const CustomButton = getButton(buttonType);
 
-  return (
-    // If you add a button and use "buttonType='css_class'" prop you can change this button's style.
-    <CustomButton {...otherProps}>{children}</CustomButton>
-  );
+  return <CustomButton {...otherProps}>{children}</CustomButton>;
 };
 
 export default Button;
