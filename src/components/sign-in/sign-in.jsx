@@ -1,11 +1,11 @@
 import { useState } from "react";
-import {
-  signInWithGooglePopup,
-  signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase/firebase";
 import FormInput from "../form-input/form-input";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
-import "./sign-in.scss";
+import {
+  signInAuthUserWithEmailAndPassword,
+  signInWithGooglePopup,
+} from "../../utils/firebase/firebase";
+import { SignInContainer, ButtonsContainer } from "./sign-in.style";
 
 // Create default formFields state object
 const defaultFormFields = {
@@ -57,15 +57,16 @@ const SignIn = () => {
       [name]: value,
     });
   };
+  {
+  }
 
   return (
-    <div className='sign-up-container'>
+    <SignInContainer>
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
-        {/* We catch all these props as otherProps (and label) in form-input */}
-
         <FormInput
+          /* We catch all these props as otherProps (and label) in form-input */
           label='Email'
           type='email'
           required
@@ -82,19 +83,18 @@ const SignIn = () => {
           name='password'
           value={password}
         />
-
-        <div className='buttons-container'>
+        <ButtonsContainer>
           <Button type='submit'>Sign In</Button>
           <Button
             buttonType={BUTTON_TYPE_CLASSES.google}
-            onClick={signInWithGoogle}
             type='button'
+            onClick={signInWithGoogle}
           >
-            Google Sign In
+            Sign In With Google
           </Button>
-        </div>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 };
 

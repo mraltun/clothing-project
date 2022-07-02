@@ -1,29 +1,35 @@
 import { useContext } from "react";
+
 import { CartContext } from "../../context/cart";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button";
-import "./product-card.scss";
+import {
+  ProductCartContainer,
+  Footer,
+  Name,
+  Price,
+} from "./product-card.style";
 
 const ProductCard = ({ product }) => {
   const { name, price, imageUrl } = product;
   const { addItemToCart } = useContext(CartContext);
 
-  // Add as seperate function for readibility and optimization
+  // Add as separate function for better readiblity and optimization
   const addProductToCart = () => addItemToCart(product);
 
   return (
-    <div className='product-card-container'>
-      <img src={imageUrl} alt={name} />
-      <div className='footer'>
-        <span className='name'>{name}</span>
-        <span className='price'>{price}</span>
-      </div>
+    <ProductCartContainer>
+      <img src={imageUrl} alt={`${name}`} />
+      <Footer>
+        <Name>{name}</Name>
+        <Price>{price}</Price>
+      </Footer>
       <Button
         buttonType={BUTTON_TYPE_CLASSES.inverted}
         onClick={addProductToCart}
       >
-        Add to cart
+        Add to card
       </Button>
-    </div>
+    </ProductCartContainer>
   );
 };
 
