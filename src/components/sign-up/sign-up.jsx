@@ -5,7 +5,7 @@ import {
 } from "../../utils/firebase/firebase";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
-import "./sign-up.scss";
+import { SignUpContainer } from "./sign-up.style";
 
 // Create default formFields state object
 const defaultFormFields = {
@@ -64,7 +64,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className='sign-up-container'>
+    <SignUpContainer>
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
@@ -107,7 +107,7 @@ const SignUp = () => {
 
         <Button type='submit'>Sign Up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 
