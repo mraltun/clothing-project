@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
+// Order is important. We need to create this component first because we are going to call it inside DirectoryItemContainer.
 export const BackgroundImage = styled.div`
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
-  /* Destruct imageUrl from props and return as a string attribute  */
+  /* Destruct imageUrl from props and return as an  attribute  */
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `;
 
@@ -34,6 +35,7 @@ export const Body = styled.div`
     font-size: 16px;
   }
 `;
+
 export const DirectoryItemContainer = styled.div`
   min-width: 30%;
   height: 240px;
